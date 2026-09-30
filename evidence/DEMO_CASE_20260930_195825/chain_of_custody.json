@@ -1,0 +1,81 @@
+[
+    {
+        "event_id": "EVT-001",
+        "timestamp": "2026-09-30T19:58:25.256219",
+        "event": "ACQUISITION_INITIALIZED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Acquisition pipeline started in mode [DEMO] using MemoryMapper Lite Educational Simulation Engine (DEMO MODE).",
+        "status": "INITIALIZED",
+        "details": {
+            "mode": "DEMO",
+            "os": "Windows",
+            "tool": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)"
+        }
+    },
+    {
+        "event_id": "EVT-002",
+        "timestamp": "2026-09-30T19:58:25.261923",
+        "event": "MEMORY_ACQUIRED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Physical RAM image acquired (2,460,132 bytes) at demo_memory.raw.",
+        "status": "SUCCESS",
+        "details": {
+            "file_name": "demo_memory.raw",
+            "size_bytes": 2460132
+        }
+    },
+    {
+        "event_id": "EVT-003",
+        "timestamp": "2026-09-30T19:58:25.270631",
+        "event": "HASH_GENERATED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Cryptographic SHA-256 seal computed: 2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+        "status": "SUCCESS",
+        "details": {
+            "sha256": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+            "algorithm": "SHA-256"
+        }
+    },
+    {
+        "event_id": "EVT-004",
+        "timestamp": "2026-09-30T19:58:25.273615",
+        "event": "EVIDENCE_MANIFEST_CREATED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Official evidence manifest created (evidence_manifest.json).",
+        "status": "SUCCESS",
+        "details": {}
+    },
+    {
+        "event_id": "EVT-005",
+        "timestamp": "2026-09-30T19:58:25.275549",
+        "event": "EVIDENCE_PROTECTED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "OS-level read-only file attribute applied to prevent accidental alteration.",
+        "status": "PROTECTED",
+        "details": {}
+    },
+    {
+        "event_id": "EVT-006",
+        "timestamp": "2026-09-30T19:58:25.285731",
+        "event": "EVIDENCE_INTEGRITY_VERIFIED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Evidence SHA-256 matches baseline (2ab9beac75b3416f...). No modification detected.",
+        "status": "VALID",
+        "details": {
+            "calculated_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+            "baseline_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d"
+        }
+    },
+    {
+        "event_id": "EVT-007",
+        "timestamp": "2026-09-30T19:58:43.828697",
+        "event": "EVIDENCE_INTEGRITY_VERIFIED",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "description": "Evidence SHA-256 matches baseline (2ab9beac75b3416f...). No modification detected.",
+        "status": "VALID",
+        "details": {
+            "calculated_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+            "baseline_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d"
+        }
+    }
+]

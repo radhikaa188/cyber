@@ -1,0 +1,270 @@
+{
+    "app_name": "MemoryMapper Lite",
+    "version": "1.1.0",
+    "report_generated_at": "2026-09-30T19:58:25.354221",
+    "case_metadata": {
+        "case_id": "DEMO_CASE_20260930_195825",
+        "timestamp": "2026-09-30T19:58:25.254176",
+        "acquisition_start": "2026-09-30T19:58:25.254176",
+        "acquisition_end": "2026-09-30T19:58:25.261878",
+        "os": "Windows",
+        "architecture": "AMD64",
+        "python_version": "3.14.6",
+        "dump_file": "demo_memory.raw",
+        "dump_size_bytes": 2460132,
+        "sha256": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+        "acquisition_status": "SUCCESS",
+        "acquisition_mode": "DEMO",
+        "is_admin": false,
+        "tool_used": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)",
+        "additional_info": {
+            "dump_type": "EDUCATIONAL_SIMULATION",
+            "simulated_processes": 11,
+            "simulated_connections": 5,
+            "size_bytes": 2460132,
+            "demo_warning": "NOT A REAL HARDWARE MEMORY DUMP"
+        }
+    },
+    "evidence_manifest": {
+        "case_id": "DEMO_CASE_20260930_195825",
+        "evidence_id": "EVD_DEMO_20260930_195825",
+        "original_filename": "demo_memory.raw",
+        "acquisition_mode": "DEMO",
+        "acquisition_start_timestamp": "2026-09-30T19:58:25.254176",
+        "acquisition_completion_timestamp": "2026-09-30T19:58:25.261878",
+        "file_size_bytes": 2460132,
+        "sha256_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+        "operating_system": "Windows",
+        "architecture": "AMD64",
+        "acquisition_method": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)",
+        "acquisition_status": "SUCCESS",
+        "protection_status": "READ_ONLY_APPLIED",
+        "manifest_created_at": "2026-09-30T19:58:25.272100",
+        "notes": "Original memory evidence sealed. SHA-256 hash serves as the mathematical baseline to detect any subsequent modification or tampering."
+    },
+    "integrity_status": "INTEGRITY VERIFIED",
+    "chain_of_custody_events": [
+        {
+            "event_id": "EVT-001",
+            "timestamp": "2026-09-30T19:58:25.256219",
+            "event": "ACQUISITION_INITIALIZED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "Acquisition pipeline started in mode [DEMO] using MemoryMapper Lite Educational Simulation Engine (DEMO MODE).",
+            "status": "INITIALIZED",
+            "details": {
+                "mode": "DEMO",
+                "os": "Windows",
+                "tool": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)"
+            }
+        },
+        {
+            "event_id": "EVT-002",
+            "timestamp": "2026-09-30T19:58:25.261923",
+            "event": "MEMORY_ACQUIRED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "Physical RAM image acquired (2,460,132 bytes) at demo_memory.raw.",
+            "status": "SUCCESS",
+            "details": {
+                "file_name": "demo_memory.raw",
+                "size_bytes": 2460132
+            }
+        },
+        {
+            "event_id": "EVT-003",
+            "timestamp": "2026-09-30T19:58:25.270631",
+            "event": "HASH_GENERATED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "Cryptographic SHA-256 seal computed: 2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+            "status": "SUCCESS",
+            "details": {
+                "sha256": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+                "algorithm": "SHA-256"
+            }
+        },
+        {
+            "event_id": "EVT-004",
+            "timestamp": "2026-09-30T19:58:25.273615",
+            "event": "EVIDENCE_MANIFEST_CREATED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "Official evidence manifest created (evidence_manifest.json).",
+            "status": "SUCCESS",
+            "details": {}
+        },
+        {
+            "event_id": "EVT-005",
+            "timestamp": "2026-09-30T19:58:25.275549",
+            "event": "EVIDENCE_PROTECTED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "OS-level read-only file attribute applied to prevent accidental alteration.",
+            "status": "PROTECTED",
+            "details": {}
+        },
+        {
+            "event_id": "EVT-006",
+            "timestamp": "2026-09-30T19:58:25.285731",
+            "event": "EVIDENCE_INTEGRITY_VERIFIED",
+            "evidence_id": "EVD_DEMO_20260930_195825",
+            "description": "Evidence SHA-256 matches baseline (2ab9beac75b3416f...). No modification detected.",
+            "status": "VALID",
+            "details": {
+                "calculated_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+                "baseline_hash": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d"
+            }
+        }
+    ],
+    "analysis": {
+        "analyzer_name": "MemoryMapper Lite Heuristic Artifact Engine",
+        "status": "SUCCESS",
+        "os_detected": "Windows",
+        "dump_path": "C:\\Users\\radhi\\OneDrive\\Desktop\\cyber\\evidence\\DEMO_CASE_20260930_195825\\demo_memory.raw",
+        "dump_size_bytes": 2460132,
+        "signatures_found": [
+            "Windows Portable Executable (MZ/PE Header)",
+            "Windows Kernel Memory Pool (PAGE tag)",
+            "MemoryMapper Simulated Educational Artifact Marker"
+        ],
+        "processes": [
+            {
+                "pid": 4,
+                "ppid": 0,
+                "name": "System",
+                "threads": 184,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 340,
+                "ppid": 4,
+                "name": "smss.exe",
+                "threads": 4,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 488,
+                "ppid": 340,
+                "name": "csrss.exe",
+                "threads": 12,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 592,
+                "ppid": 340,
+                "name": "wininit.exe",
+                "threads": 3,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 672,
+                "ppid": 592,
+                "name": "services.exe",
+                "threads": 28,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 712,
+                "ppid": 592,
+                "name": "lsass.exe",
+                "threads": 16,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 880,
+                "ppid": 672,
+                "name": "svchost.exe",
+                "threads": 32,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 1420,
+                "ppid": 672,
+                "name": "explorer.exe",
+                "threads": 44,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 3108,
+                "ppid": 1420,
+                "name": "powershell.exe",
+                "threads": 8,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 4920,
+                "ppid": 1420,
+                "name": "chrome.exe",
+                "threads": 22,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 5210,
+                "ppid": 1420,
+                "name": "python.exe",
+                "threads": 6,
+                "state": "RUNNING"
+            }
+        ],
+        "network_connections": [
+            {
+                "proto": "TCP",
+                "local_address": "192.168.1.45:49821",
+                "remote_address": "142.250.190.46:443",
+                "state": "ESTABLISHED",
+                "process_info": "4920 (chrome.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "192.168.1.45:51204",
+                "remote_address": "20.189.173.1:443",
+                "state": "ESTABLISHED",
+                "process_info": "880 (svchost.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "0.0.0.0:8080",
+                "remote_address": "0.0.0.0:0",
+                "state": "LISTENING",
+                "process_info": "5210 (python.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "127.0.0.1:27017",
+                "remote_address": "0.0.0.0:0",
+                "state": "LISTENING",
+                "process_info": "672 (services.exe)"
+            },
+            {
+                "proto": "UDP",
+                "local_address": "192.168.1.45:5353",
+                "remote_address": "224.0.0.251:5353",
+                "state": "BOUND",
+                "process_info": "1420 (explorer.exe)"
+            }
+        ],
+        "extracted_strings": {
+            "urls": [
+                "https://api.github.com/repos/MemoryMapper/releases",
+                "http://192.168.1.1/admin/gateway"
+            ],
+            "ips": [
+                "192.168.1.45",
+                "142.250.190.46",
+                "20.189.173.1",
+                "127.0.0.1",
+                "224.0.0.251",
+                "192.168.1.1",
+                "10.0.2.15"
+            ],
+            "commands": [
+                "python.exe main.py --acquire-demo",
+                "Get-Process | Where-Object {$_.CPU -gt 10}"
+            ],
+            "environment": [
+                "USERNAME=ForensicAnalyst",
+                "COMPUTERNAME=DFIR-WORKSTATION",
+                "PATH=C:\\Windows\\system32;C:\\Windows;C:\\Python314"
+            ]
+        },
+        "summary_notes": "Heuristic memory inspection discovered 3 header signature(s), 11 process candidate(s), 5 network socket(s), and 7 IP reference(s).",
+        "errors_and_limitations": [],
+        "analysis_timestamp": "2026-09-30T19:58:25.287556"
+    }
+}

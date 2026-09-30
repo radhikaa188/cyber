@@ -1,0 +1,184 @@
+{
+    "app_name": "MemoryMapper Lite",
+    "version": "1.0.0",
+    "report_generated_at": "2026-09-30T19:48:54.992724",
+    "case_metadata": {
+        "case_id": "demo_case_20260930_194854",
+        "timestamp": "2026-09-30T19:48:54.912313",
+        "acquisition_start": "2026-09-30T19:48:54.912313",
+        "acquisition_end": "2026-09-30T19:48:54.917675",
+        "os": "Windows",
+        "architecture": "AMD64",
+        "python_version": "3.14.6",
+        "dump_file": "demo_memory.raw",
+        "dump_size_bytes": 2460132,
+        "sha256": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+        "acquisition_status": "SUCCESS",
+        "acquisition_mode": "DEMO",
+        "is_admin": false,
+        "tool_used": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)",
+        "additional_info": {
+            "dump_type": "EDUCATIONAL_SIMULATION",
+            "simulated_processes": 11,
+            "simulated_connections": 5,
+            "size_bytes": 2460132,
+            "demo_warning": "NOT A REAL HARDWARE MEMORY DUMP"
+        }
+    },
+    "integrity_status": "VALID",
+    "analysis": {
+        "analyzer_name": "MemoryMapper Lite Heuristic Artifact Engine",
+        "status": "SUCCESS",
+        "os_detected": "Windows",
+        "dump_path": "C:\\Users\\radhi\\OneDrive\\Desktop\\cyber\\evidence\\demo_case_20260930_194854\\demo_memory.raw",
+        "dump_size_bytes": 2460132,
+        "signatures_found": [
+            "Windows Portable Executable (MZ/PE Header)",
+            "Windows Kernel Memory Pool (PAGE tag)",
+            "MemoryMapper Simulated Educational Artifact Marker"
+        ],
+        "processes": [
+            {
+                "pid": 4,
+                "ppid": 0,
+                "name": "System",
+                "threads": 184,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 340,
+                "ppid": 4,
+                "name": "smss.exe",
+                "threads": 4,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 488,
+                "ppid": 340,
+                "name": "csrss.exe",
+                "threads": 12,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 592,
+                "ppid": 340,
+                "name": "wininit.exe",
+                "threads": 3,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 672,
+                "ppid": 592,
+                "name": "services.exe",
+                "threads": 28,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 712,
+                "ppid": 592,
+                "name": "lsass.exe",
+                "threads": 16,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 880,
+                "ppid": 672,
+                "name": "svchost.exe",
+                "threads": 32,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 1420,
+                "ppid": 672,
+                "name": "explorer.exe",
+                "threads": 44,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 3108,
+                "ppid": 1420,
+                "name": "powershell.exe",
+                "threads": 8,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 4920,
+                "ppid": 1420,
+                "name": "chrome.exe",
+                "threads": 22,
+                "state": "RUNNING"
+            },
+            {
+                "pid": 5210,
+                "ppid": 1420,
+                "name": "python.exe",
+                "threads": 6,
+                "state": "RUNNING"
+            }
+        ],
+        "network_connections": [
+            {
+                "proto": "TCP",
+                "local_address": "192.168.1.45:49821",
+                "remote_address": "142.250.190.46:443",
+                "state": "ESTABLISHED",
+                "process_info": "4920 (chrome.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "192.168.1.45:51204",
+                "remote_address": "20.189.173.1:443",
+                "state": "ESTABLISHED",
+                "process_info": "880 (svchost.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "0.0.0.0:8080",
+                "remote_address": "0.0.0.0:0",
+                "state": "LISTENING",
+                "process_info": "5210 (python.exe)"
+            },
+            {
+                "proto": "TCP",
+                "local_address": "127.0.0.1:27017",
+                "remote_address": "0.0.0.0:0",
+                "state": "LISTENING",
+                "process_info": "672 (services.exe)"
+            },
+            {
+                "proto": "UDP",
+                "local_address": "192.168.1.45:5353",
+                "remote_address": "224.0.0.251:5353",
+                "state": "BOUND",
+                "process_info": "1420 (explorer.exe)"
+            }
+        ],
+        "extracted_strings": {
+            "urls": [
+                "https://api.github.com/repos/MemoryMapper/releases",
+                "http://192.168.1.1/admin/gateway"
+            ],
+            "ips": [
+                "192.168.1.45",
+                "142.250.190.46",
+                "20.189.173.1",
+                "127.0.0.1",
+                "224.0.0.251",
+                "192.168.1.1",
+                "10.0.2.15"
+            ],
+            "commands": [
+                "python.exe main.py --acquire-demo",
+                "Get-Process | Where-Object {$_.CPU -gt 10}"
+            ],
+            "environment": [
+                "USERNAME=ForensicAnalyst",
+                "COMPUTERNAME=DFIR-WORKSTATION",
+                "PATH=C:\\Windows\\system32;C:\\Windows;C:\\Python314"
+            ]
+        },
+        "summary_notes": "Heuristic memory inspection discovered 3 header signature(s), 11 process candidate(s), 5 network socket(s), and 7 IP reference(s).",
+        "errors_and_limitations": [],
+        "analysis_timestamp": "2026-09-30T19:48:54.932988"
+    }
+}

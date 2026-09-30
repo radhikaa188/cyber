@@ -1,0 +1,36 @@
+"""Configuration package for MemoryMapper Lite."""
+from config.config import (
+    APP_NAME,
+    APP_SUBTITLE,
+    APP_VERSION,
+    BASE_DIR,
+    EVIDENCE_DIR,
+    WORKSPACE_DIR,
+    LOGS_DIR,
+    REPORTS_DIR,
+    LOG_FILE,
+    WINPMEM_PATH,
+    LIME_MODULE_PATH,
+    LINPMEM_PATH,
+    VOLATILITY_CMD,
+    HASH_CHUNK_SIZE,
+    BASIC_SCAN_MAX_BYTES,
+)
+
+__all__ = [
+    "APP_NAME",
+    "APP_SUBTITLE",
+    "APP_VERSION",
+    "BASE_DIR",
+    "EVIDENCE_DIR",
+    "WORKSPACE_DIR",
+    "LOGS_DIR",
+    "REPORTS_DIR",
+    "LOG_FILE",
+    "WINPMEM_PATH",
+    "LIME_MODULE_PATH",
+    "LINPMEM_PATH",
+    "VOLATILITY_CMD",
+    "HASH_CHUNK_SIZE",
+    "BASIC_SCAN_MAX_BYTES",
+]

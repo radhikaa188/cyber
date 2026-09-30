@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFIR Forensic Report - DEMO_CASE_20260930_195825</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1f242d;
+            --border-color: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --demo: #a371f7;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(135deg, #161b22 0%, #1c2333 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .header-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        h1 { font-size: 1.8rem; color: var(--accent); }
+        .subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1rem; }
+        .badge-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-primary { background: rgba(88, 166, 255, 0.2); color: var(--accent); border: 1px solid var(--accent); }
+        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); border: 1px solid var(--success); }
+        .badge-danger { background: rgba(248, 81, 73, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+        .badge-warning { background: rgba(210, 153, 34, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+        .badge-demo { background: rgba(163, 113, 247, 0.2); color: var(--demo); border: 1px solid var(--demo); }
+        .badge-subtle { background: #21262d; color: var(--text-secondary); border: 1px solid var(--border-color); }
+        
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .alert-warning {
+            background: rgba(210, 153, 34, 0.15);
+            border: 1px solid var(--warning);
+            color: #e3b341;
+        }
+        
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: var(--bg-card);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header h2 { font-size: 1.2rem; color: var(--text-primary); }
+        .card-body { padding: 1.5rem; }
+
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+        .meta-list { list-style: none; }
+        .meta-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+        }
+        .meta-list li span.label { color: var(--text-secondary); }
+        .meta-list li span.val { color: var(--text-primary); font-weight: 500; text-align: right; }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--bg-card);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: rgba(255,255,255,0.02); }
+
+        code {
+            font-family: var(--font-mono);
+            background-color: rgba(110, 118, 129, 0.2);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85em;
+            word-break: break-all;
+        }
+        .hash-code {
+            color: #58a6ff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sub-card h4 { font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .compact-list { list-style: none; font-size: 0.85rem; max-height: 200px; overflow-y: auto; }
+        .compact-list li { padding: 0.25rem 0; }
+        .warning-list { margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.88rem; }
+        .summary-text { margin-bottom: 1rem; color: #c9d1d9; font-size: 0.95rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title-row">
+                <h1>MemoryMapper Lite &bull; Forensic Investigation Report</h1>
+                <div class="badge-group">
+                    <span class="badge badge-demo">DEMO / SIMULATION MODE (TEST ARTIFACT)</span>
+                    <span class="badge badge-success">ACQUISITION SUCCESSFUL</span>
+                </div>
+            </div>
+            <div class="subtitle">Real RAM Acquisition & Memory Forensics Tool with Chain of Custody &bull; v1.1.0</div>
+            <p style="color: var(--text-secondary); font-size: 0.85rem;">Generated on: 2026-09-30 19:58:25 | Authorized DFIR Examination Record</p>
+            <div class="alert alert-warning"><strong>DEMO MODE NOTICE:</strong> This report represents an educational simulation test artifact. It was generated in a safe, non-privileged test environment and does NOT constitute real physical RAM capture.</div>
+        </header>
+
+        <!-- Case & System Metadata -->
+        <div class="grid grid-2">
+            <section class="card">
+                <div class="card-header">
+                    <h2>1. Case Information</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="meta-list">
+                        <li><span class="label">Case ID</span><span class="val"><code>DEMO_CASE_20260930_195825</code></span></li>
+                        <li><span class="label">Evidence ID</span><span class="val"><code>EVD_DEMO_20260930_195825</code></span></li>
+                        <li><span class="label">Acquisition Mode</span><span class="val">DEMO</span></li>
+                        <li><span class="label">Acquisition Tool</span><span class="val">MemoryMapper Lite Educational Simulation Engine (DEMO MODE)</span></li>
+                        <li><span class="label">Start Timestamp</span><span class="val">2026-09-30T19:58:25.254176</span></li>
+                        <li><span class="label">End Timestamp</span><span class="val">2026-09-30T19:58:25.261878</span></li>
+                        <li><span class="label">Status</span><span class="val">SUCCESS</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>2. Target System Environment</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="meta-list">
+                        <li><span class="label">Operating System</span><span class="val">Windows</span></li>
+                        <li><span class="label">Architecture</span><span class="val">AMD64</span></li>
+                        <li><span class="label">Python Version</span><span class="val">3.14.6</span></li>
+                        <li><span class="label">Execution Privileges</span><span class="val">Standard User</span></li>
+                        <li><span class="label">Report Timestamp</span><span class="val">2026-09-30 19:58:25</span></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Evidence & Integrity -->
+        <section class="card">
+            <div class="card-header">
+                <h2>3. Evidence Preservation &amp; Cryptographic Integrity</h2>
+                <span class="badge badge-success">✓ INTEGRITY VERIFIED (MATCHED)</span>
+            </div>
+            <div class="card-body">
+                <ul class="meta-list">
+                    <li><span class="label">Dump File Name</span><span class="val"><code>demo_memory.raw</code></span></li>
+                    <li><span class="label">Evidence File Size</span><span class="val">2,460,132 bytes (2.35 MB)</span></li>
+                    <li><span class="label">Cryptographic Hash (SHA-256)</span><span class="val"><code class="hash-code">2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d</code></span></li>
+                    <li><span class="label">Verification Status</span><span class="val">INTEGRITY VERIFIED</span></li>
+                    <li><span class="label">Evidence Storage Status</span><span class="val">Read-Only File Attribute Applied</span></li>
+                </ul>
+                <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                    <p><strong>Chain of Custody &amp; Tamper Detection:</strong></p>
+                    <ul style="margin-left: 1.2rem; margin-top: 0.3rem;">
+                        <li><strong>SHA-256 Hashing:</strong> Detects whether the evidence has been modified or corrupted after acquisition. (Note: Hashing mathematically <em>detects</em> changes; it does not physically prevent modification).</li>
+                        <li><strong>Read-Only Storage:</strong> Software-level protection prevents accidental overwriting by applications during examination.</li>
+                        <li><strong>Working Copy Policy:</strong> Analysis is performed on replicated working copies in <code>analysis_workspace/</code> to preserve primary evidence untouched.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chain of Custody Audit Trail -->
+        <section class="card">
+            <div class="card-header">
+                <h2>4. Chain-of-Custody Audit Trail</h2>
+                <span class="badge badge-subtle">6 Recorded Events</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event ID</th>
+                                <th>Timestamp</th>
+                                <th>Event Type</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td><code>EVT-001</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>ACQUISITION_INITIALIZED</strong></td>
+                    <td>Acquisition pipeline started in mode [DEMO] using MemoryMapper Lite Educational Simulation Engine (DEMO MODE).</td>
+                    <td><span class="badge badge-subtle">INITIALIZED</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>EVT-002</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>MEMORY_ACQUIRED</strong></td>
+                    <td>Physical RAM image acquired (2,460,132 bytes) at demo_memory.raw.</td>
+                    <td><span class="badge badge-success">SUCCESS</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>EVT-003</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>HASH_GENERATED</strong></td>
+                    <td>Cryptographic SHA-256 seal computed: 2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d</td>
+                    <td><span class="badge badge-success">SUCCESS</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>EVT-004</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>EVIDENCE_MANIFEST_CREATED</strong></td>
+                    <td>Official evidence manifest created (evidence_manifest.json).</td>
+                    <td><span class="badge badge-success">SUCCESS</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>EVT-005</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>EVIDENCE_PROTECTED</strong></td>
+                    <td>OS-level read-only file attribute applied to prevent accidental alteration.</td>
+                    <td><span class="badge badge-success">PROTECTED</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>EVT-006</code></td>
+                    <td>2026-09-30T19:58:25</td>
+                    <td><strong>EVIDENCE_INTEGRITY_VERIFIED</strong></td>
+                    <td>Evidence SHA-256 matches baseline (2ab9beac75b3416f...). No modification detected.</td>
+                    <td><span class="badge badge-success">VALID</span></td>
+                </tr>
+                
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        
+            <section class="card">
+                <div class="card-header">
+                    <h2>5. Memory Forensics Analysis</h2>
+                    <span class="badge badge-subtle">MemoryMapper Lite Heuristic Artifact Engine | Status: SUCCESS</span>
+                </div>
+                <div class="card-body">
+                    <p class="summary-text">Heuristic memory inspection discovered 3 header signature(s), 11 process candidate(s), 5 network socket(s), and 7 IP reference(s).</p>
+                    
+                    <h3>Detected Signatures & Headers</h3>
+                    <ul><li>Windows Portable Executable (MZ/PE Header)</li><li>Windows Kernel Memory Pool (PAGE tag)</li><li>MemoryMapper Simulated Educational Artifact Marker</li></ul>
+
+                    <h3>Extracted Process Artifacts (11)</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>PID</th><th>PPID</th><th>Process Name</th><th>Threads</th><th>State</th></tr>
+                            </thead>
+                            <tbody>
+                                
+                <tr>
+                    <td><code>4</code></td>
+                    <td><code>0</code></td>
+                    <td><strong>System</strong></td>
+                    <td>184</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>340</code></td>
+                    <td><code>4</code></td>
+                    <td><strong>smss.exe</strong></td>
+                    <td>4</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>488</code></td>
+                    <td><code>340</code></td>
+                    <td><strong>csrss.exe</strong></td>
+                    <td>12</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>592</code></td>
+                    <td><code>340</code></td>
+                    <td><strong>wininit.exe</strong></td>
+                    <td>3</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>672</code></td>
+                    <td><code>592</code></td>
+                    <td><strong>services.exe</strong></td>
+                    <td>28</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>712</code></td>
+                    <td><code>592</code></td>
+                    <td><strong>lsass.exe</strong></td>
+                    <td>16</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>880</code></td>
+                    <td><code>672</code></td>
+                    <td><strong>svchost.exe</strong></td>
+                    <td>32</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>1420</code></td>
+                    <td><code>672</code></td>
+                    <td><strong>explorer.exe</strong></td>
+                    <td>44</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>3108</code></td>
+                    <td><code>1420</code></td>
+                    <td><strong>powershell.exe</strong></td>
+                    <td>8</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>4920</code></td>
+                    <td><code>1420</code></td>
+                    <td><strong>chrome.exe</strong></td>
+                    <td>22</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                <tr>
+                    <td><code>5210</code></td>
+                    <td><code>1420</code></td>
+                    <td><strong>python.exe</strong></td>
+                    <td>6</td>
+                    <td><span class="badge badge-subtle">RUNNING</span></td>
+                </tr>
+                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Network Socket Artifacts (5)</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>Proto</th><th>Local Address</th><th>Remote Address</th><th>State</th><th>Process</th></tr>
+                            </thead>
+                            <tbody>
+                                
+                <tr>
+                    <td><code>TCP</code></td>
+                    <td><code>192.168.1.45:49821</code></td>
+                    <td><code>142.250.190.46:443</code></td>
+                    <td><span class="badge badge-subtle">ESTABLISHED</span></td>
+                    <td>4920 (chrome.exe)</td>
+                </tr>
+                
+                <tr>
+                    <td><code>TCP</code></td>
+                    <td><code>192.168.1.45:51204</code></td>
+                    <td><code>20.189.173.1:443</code></td>
+                    <td><span class="badge badge-subtle">ESTABLISHED</span></td>
+                    <td>880 (svchost.exe)</td>
+                </tr>
+                
+                <tr>
+                    <td><code>TCP</code></td>
+                    <td><code>0.0.0.0:8080</code></td>
+                    <td><code>0.0.0.0:0</code></td>
+                    <td><span class="badge badge-subtle">LISTENING</span></td>
+                    <td>5210 (python.exe)</td>
+                </tr>
+                
+                <tr>
+                    <td><code>TCP</code></td>
+                    <td><code>127.0.0.1:27017</code></td>
+                    <td><code>0.0.0.0:0</code></td>
+                    <td><span class="badge badge-subtle">LISTENING</span></td>
+                    <td>672 (services.exe)</td>
+                </tr>
+                
+                <tr>
+                    <td><code>UDP</code></td>
+                    <td><code>192.168.1.45:5353</code></td>
+                    <td><code>224.0.0.251:5353</code></td>
+                    <td><span class="badge badge-subtle">BOUND</span></td>
+                    <td>1420 (explorer.exe)</td>
+                </tr>
+                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Extracted Strings & Network IOCs</h3>
+                    <div class="grid grid-3">
+                        <div class="sub-card">
+                            <h4>IP Addresses (7)</h4>
+                            <ul class="compact-list"><li><code>192.168.1.45</code></li><li><code>142.250.190.46</code></li><li><code>20.189.173.1</code></li><li><code>127.0.0.1</code></li><li><code>224.0.0.251</code></li><li><code>192.168.1.1</code></li><li><code>10.0.2.15</code></li></ul>
+                        </div>
+                        <div class="sub-card">
+                            <h4>URLs (2)</h4>
+                            <ul class="compact-list"><li><code>https://api.github.com/repos/MemoryMapper/releases</code></li><li><code>http://192.168.1.1/admin/gateway</code></li></ul>
+                        </div>
+                        <div class="sub-card">
+                            <h4>Commands & Environment</h4>
+                            <ul class="compact-list"><li><code>python.exe main.py --acquire-demo</code></li><li><code>Get-Process | Where-Object {$_.CPU -gt 10}</code></li></ul>
+                        </div>
+                    </div>
+
+                    <h3>Limitations & Analysis Notes</h3>
+                    <ul class="warning-list"><li>None reported.</li></ul>
+                </div>
+            </section>
+            
+
+        <!-- Conclusion & Disclaimer -->
+        <section class="card">
+            <div class="card-header">
+                <h2>6. Forensic Conclusion &amp; Chain of Custody Declaration</h2>
+            </div>
+            <div class="card-body">
+                <p class="summary-text">
+                    This digital forensics report was automatically generated by <strong>MemoryMapper Lite</strong>. 
+                    Evidence acquisition, SHA-256 cryptographic sealing, chain-of-custody logging, and preliminary artifact extraction have been performed in accordance with digital forensics standards (ISO/IEC 27037).
+                </p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                    <strong>Ethics &amp; Legal Compliance:</strong> This software is intended strictly for authorized educational research, defensive security operations, and legitimate incident response. Unauthorized acquisition of digital memory from systems without explicit consent is illegal.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>MemoryMapper Lite &bull; College Digital Forensics & Incident Response (DFIR) Mini-Project</p>
+            <p style="margin-top: 0.3rem;">Real RAM Acquisition &bull; Chain of Custody &bull; Standalone Offline Architecture</p>
+        </footer>
+    </div>
+</body>
+</html>

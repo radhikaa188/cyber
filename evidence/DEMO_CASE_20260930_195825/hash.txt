@@ -1,0 +1,4 @@
+SHA-256 Evidence Integrity Record
+Target File : demo_memory.raw
+File Size   : 2460132 bytes
+SHA-256     : 2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d

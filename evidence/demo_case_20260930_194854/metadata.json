@@ -1,0 +1,23 @@
+{
+    "case_id": "demo_case_20260930_194854",
+    "timestamp": "2026-09-30T19:48:54.912313",
+    "acquisition_start": "2026-09-30T19:48:54.912313",
+    "acquisition_end": "2026-09-30T19:48:54.917675",
+    "os": "Windows",
+    "architecture": "AMD64",
+    "python_version": "3.14.6",
+    "dump_file": "demo_memory.raw",
+    "dump_size_bytes": 2460132,
+    "sha256": "2ab9beac75b3416f18cd61897e6b4ffbc77058848b18aca6ec30aa126aed9b3d",
+    "acquisition_status": "SUCCESS",
+    "acquisition_mode": "DEMO",
+    "is_admin": false,
+    "tool_used": "MemoryMapper Lite Educational Simulation Engine (DEMO MODE)",
+    "additional_info": {
+        "dump_type": "EDUCATIONAL_SIMULATION",
+        "simulated_processes": 11,
+        "simulated_connections": 5,
+        "size_bytes": 2460132,
+        "demo_warning": "NOT A REAL HARDWARE MEMORY DUMP"
+    }
+}

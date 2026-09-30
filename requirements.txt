@@ -1,0 +1,16 @@
+# MemoryMapper Lite - Dependency Specification
+# -------------------------------------------------------------
+# CORE APPLICATION: 100% Zero Mandatory External Dependencies!
+# The entire core workflow (acquisition abstraction, demo mode,
+# SHA-256 hashing, metadata tracking, heuristic DFIR artifact scanning,
+# and HTML/JSON report generation) runs on Python 3.10+ Standard Library.
+# -------------------------------------------------------------
+
+# [OPTIONAL] Enhanced System Diagnostics:
+# psutil>=5.9.0
+
+# [OPTIONAL] Deep Kernel Memory Analysis & Symbol Parsing:
+# volatility3>=2.7.0
+
+# [OPTIONAL] Advanced Unit Testing:
+# pytest>=7.0.0
